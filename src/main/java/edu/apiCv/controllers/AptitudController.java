@@ -1,0 +1,57 @@
+package edu.apiCv.controllers;
+
+import edu.apiCv.dtos.AptitudRequestDto;
+import edu.apiCv.dtos.AptitudResponseDto;
+import edu.apiCv.services.AptitudService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+/** Expone los endpoints REST para gestionar aptituds. */
+@RestController
+@RequestMapping("/api/aptitudes")
+public class AptitudController {
+    private final AptitudService service;
+
+    /** Construye el controlador.
+     * @param service servicio de aptituds
+     */
+    public AptitudController(AptitudService service) { this.service = service; }
+
+    /** Obtiene todos los registros.
+     * @return lista de registros
+     */
+    @GetMapping
+    public ResponseEntity<List<AptitudResponseDto>> findAll() { return ResponseEntity.ok(service.findAll()); }
+
+    /** Obtiene un registro por su ID.
+     * @param id identificador del registro
+     * @return registro encontrado
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<AptitudResponseDto> findById(@PathVariable Long id) { return ResponseEntity.ok(service.findById(id)); }
+
+    /** Crea un nuevo registro.
+     * @param dto datos recibidos
+     * @return registro creado
+     */
+    @PostMapping
+    public ResponseEntity<AptitudResponseDto> create(@Valid @RequestBody AptitudRequestDto dto) { return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto)); }
+
+    /** Actualiza un registro existente.
+     * @param id identificador del registro
+     * @param dto nuevos datos
+     * @return registro actualizado
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<AptitudResponseDto> update(@PathVariable Long id, @Valid @RequestBody AptitudRequestDto dto) { return ResponseEntity.ok(service.update(id, dto)); }
+
+    /** Elimina un registro.
+     * @param id identificador del registro
+     * @return respuesta sin contenido
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) { service.delete(id); return ResponseEntity.noContent().build(); }
+}

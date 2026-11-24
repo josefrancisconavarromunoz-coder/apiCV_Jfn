@@ -1,0 +1,218 @@
+@baseUrl = http://localhost:8080/api
+
+### ALUMNOS
+### Crear alumno
+POST {{baseUrl}}/alumnos
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellidos": "Garcia Lopez",
+  "nif": "12345678A",
+  "telefono": "600123123",
+  "correo": "ana@example.com",
+  "direccion": "Calle Mayor 1, Sevilla",
+  "fechaNacimiento": "2002-05-10",
+  "sobreMi": "Estudiante de desarrollo web",
+  "carnetConducir": true,
+  "vehiculoPropio": false,
+  "masInformacion": "Disponibilidad de incorporación"
+}
+
+### Listar alumnos (GET no necesita Body)
+GET {{baseUrl}}/alumnos
+
+### Obtener alumno por ID
+GET {{baseUrl}}/alumnos/1
+
+### Modificar alumno
+PUT {{baseUrl}}/alumnos/1
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellidos": "Garcia Lopez",
+  "nif": "12345678A",
+  "telefono": "600123123",
+  "correo": "ana@example.com",
+  "direccion": "Calle Mayor 2, Sevilla",
+  "fechaNacimiento": "2002-05-10",
+  "sobreMi": "Estudiante de DAW",
+  "carnetConducir": true,
+  "vehiculoPropio": false,
+  "masInformacion": "Disponibilidad de incorporación"
+}
+
+### Eliminar alumno
+DELETE {{baseUrl}}/alumnos/1
+
+### EXPERIENCIAS
+### Crear experiencia (alumnoId debe existir)
+POST {{baseUrl}}/experiencias
+Content-Type: application/json
+
+{
+  "empresa": "Empresa Ejemplo",
+  "puesto": "Desarrolladora en prácticas",
+  "fecha": "2025-06-01",
+  "descripcion": "Desarrollo de aplicaciones web",
+  "alumnoId": 1
+}
+
+### Listar experiencias
+GET {{baseUrl}}/experiencias
+
+### Obtener experiencia por ID
+GET {{baseUrl}}/experiencias/1
+
+### Modificar experiencia
+PUT {{baseUrl}}/experiencias/1
+Content-Type: application/json
+
+{
+  "empresa": "Empresa Ejemplo",
+  "puesto": "Desarrolladora junior",
+  "fecha": "2025-06-01",
+  "descripcion": "Mantenimiento de aplicaciones web",
+  "alumnoId": 1
+}
+
+### Eliminar experiencia
+DELETE {{baseUrl}}/experiencias/1
+
+### FORMACIONES
+### Crear formación (alumnoId debe existir)
+POST {{baseUrl}}/formaciones
+Content-Type: application/json
+
+{
+  "centro": "IES Altair",
+  "titulo": "Desarrollo de Aplicaciones Web",
+  "codigoPostal": "41020",
+  "fecha": "2026-06-15",
+  "alumnoId": 1
+}
+
+### Listar formaciones
+GET {{baseUrl}}/formaciones
+
+### Obtener formación por ID
+GET {{baseUrl}}/formaciones/1
+
+### Modificar formación
+PUT {{baseUrl}}/formaciones/1
+Content-Type: application/json
+
+{
+  "centro": "IES Altair",
+  "titulo": "Técnico Superior en Desarrollo de Aplicaciones Web",
+  "codigoPostal": "41020",
+  "fecha": "2026-06-15",
+  "alumnoId": 1
+}
+
+### Eliminar formación
+DELETE {{baseUrl}}/formaciones/1
+
+### APTITUDES
+### Crear aptitud (alumnoId debe existir)
+POST {{baseUrl}}/aptitudes
+Content-Type: application/json
+
+{
+  "descripcion": "Trabajo en equipo, comunicación y Java",
+  "alumnoId": 1
+}
+
+### Listar aptitudes
+GET {{baseUrl}}/aptitudes
+
+### Obtener aptitud por ID
+GET {{baseUrl}}/aptitudes/1
+
+### Modificar aptitud
+PUT {{baseUrl}}/aptitudes/1
+Content-Type: application/json
+
+{
+  "descripcion": "Java, Spring Boot, MySQL y trabajo en equipo",
+  "alumnoId": 1
+}
+
+### Eliminar aptitud
+DELETE {{baseUrl}}/aptitudes/1
+
+### ERRORES DE EJEMPLO
+### Alumno inexistente (404)
+GET {{baseUrl}}/alumnos/99999
+
+### Alumno sin nombre (400)
+POST {{baseUrl}}/alumnos
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellidos": "Prueba"
+}
+
+### Crear experiencia con alumno inexistente (404)
+POST {{baseUrl}}/experiencias
+Content-Type: application/json
+
+{
+  "empresa": "Empresa Ejemplo",
+  "puesto": "Técnico",
+  "fecha": "2025-01-01",
+  "descripcion": "Prueba",
+  "alumnoId": 99999
+}
+
+
+### PROFESORES
+### Crear profesor
+POST {{baseUrl}}/profesores
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellidos": "Martinez Ruiz",
+  "nif": "87654321B",
+  "telefono": "600222333",
+  "correo": "carlos@centro.es",
+  "direccion": "Sevilla",
+  "fechaNacimiento": "1985-03-12",
+  "sobreMi": "Profesor de desarrollo web",
+  "carnetConducir": true,
+  "vehiculoPropio": true,
+  "masInformacion": "Tutor de proyectos"
+}
+
+### Consultar currículums de profesores
+GET {{baseUrl}}/profesores
+
+### Consultar un profesor
+GET {{baseUrl}}/profesores/2
+
+### Modificar currículum de profesor
+PUT {{baseUrl}}/profesores/2
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellidos": "Martinez Ruiz",
+  "nif": "87654321B",
+  "telefono": "600222333",
+  "correo": "carlos@centro.es",
+  "direccion": "Sevilla",
+  "fechaNacimiento": "1985-03-12",
+  "sobreMi": "Profesor de DAW y desarrollo web",
+  "carnetConducir": true,
+  "vehiculoPropio": true,
+  "masInformacion": "Tutor de proyectos"
+}
+
+### Consultar currículums de alumnos desde el área de profesores
+GET {{baseUrl}}/alumnos/alumnos
+
+### Consultar currículums de profesores desde el área de alumnos
+GET {{baseUrl}}/alumnos/profesores
